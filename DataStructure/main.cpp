@@ -2,7 +2,13 @@
 #include <iostream>
 #include "LinkedList.h"
 #include "DoublyLinkedList.h"
-#include <list>
+#include <crtdbg.h>
+
+// Call _CrtDumpMemoryLeaks after main has returned and before program terminates.
+struct AtExit
+{
+	~AtExit() { _CrtDumpMemoryLeaks(); }
+} doAtExit;
 
 void LinkedListExample()
 {
@@ -64,23 +70,10 @@ int main()
 {
 	//LinkedListExample();
 
+	DoublyLinkedList<int> dll;
+	dll.PushFront(10);
 
-	DoublyLinkedList<int> ddd;
-	//DoublyLinkedList<int> zzz;
-	/*std::list<int> list;
 
-	list.push_front(10);
-	std::cout << list.front() << std::endl;
-	list.pop_front();
-	std::cout << list.front() << std::endl;*/
-
-	std::cout << (ddd.IsEmpty() ? "True" : "False") << std::endl;
-
-	ddd.PushFront(10);
-	//std::cout << ddd.Front() << std::endl;
-
-	//std::cout << ddd.Front() << std::endl;
-
-	_CrtDumpMemoryLeaks();
+	//_CrtDumpMemoryLeaks();
 	return 0;
 }

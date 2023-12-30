@@ -26,7 +26,7 @@ public:
 					Node<T>* newTemp = new Node<T>(temp->value);
 					if(temp->prev)
 					{
-						
+
 					}
 					temp = temp->next;
 				}#1#
@@ -53,8 +53,9 @@ public:
 
 	~DoublyLinkedList()
 	{
-		while(Head)
+		while (Head != nullptr)
 		{
+			std::cout << " Testing " << std::endl;
 			Node<T>* temp = Head->next;
 			delete Head;
 			Head = temp;
@@ -74,9 +75,9 @@ private:
 	public:
 		Node() = default;
 		Node(U value)
-			: value(value)
+			: value(value), next(nullptr)
 		{}
-		U value = 0;
+		U value = U();
 		Node* next = nullptr;
 	};
 
@@ -94,12 +95,15 @@ T DoublyLinkedList<T>::Front()
 template <typename T>
 void DoublyLinkedList<T>::PushFront(const T& value)
 {
+	Node<T>* temp = new Node<T>(value);
 	if (IsEmpty())
 	{
-		Node<T>* temp = new Node<T>(value);
 		Head = temp;
 		return;
 	}
+
+	temp->next = Head;
+	Head = temp;
 }
 
 template<typename T>
