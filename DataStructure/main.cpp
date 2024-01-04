@@ -3,6 +3,7 @@
 #include "LinkedList.h"
 #include "DoublyLinkedList.h"
 #include <crtdbg.h>
+#include "Stack.h"
 
 // Call _CrtDumpMemoryLeaks after main has returned and before program terminates.
 struct AtExit
@@ -66,13 +67,35 @@ void LinkedListExample()
 	std::cout << "===================================================" << '\n';
 }
 
+void DoublyLinkedListExample() {
+	DoublyLinkedList<int> dll;
+	dll.PushFront(10);
+}
+
+void Test(int* refPtr, int value) {
+	if (refPtr) {
+		std::cout << "yes" << std::endl;
+	}
+	else {
+		std::cout << "no" << std::endl;
+
+	}
+}
+
 int main()
 {
 	//LinkedListExample();
 
-	DoublyLinkedList<int> dll;
-	dll.PushFront(10);
+	Stack stackDT;
 
+	stackDT.Push("Value");
+	std::cout << stackDT.Pop() << std::endl;
+	std::cout << stackDT.Pop() << std::endl;
+	std::cout << (!stackDT.IsEmpty() ? "true" : "false");
+
+	//std::unique_ptr<int> intptr = std::make_unique<int>(10);
+
+	//Test(intptr.get(), 10);
 
 	//_CrtDumpMemoryLeaks();
 	return 0;
