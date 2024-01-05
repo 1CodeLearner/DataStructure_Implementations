@@ -3,6 +3,8 @@
 #include "LinkedList.h"
 #include "DoublyLinkedList.h"
 #include <crtdbg.h>
+#include <stack>
+
 #include "Stack.h"
 
 // Call _CrtDumpMemoryLeaks after main has returned and before program terminates.
@@ -72,30 +74,56 @@ void DoublyLinkedListExample() {
 	dll.PushFront(10);
 }
 
-void Test(int* refPtr, int value) {
-	if (refPtr) {
-		std::cout << "yes" << std::endl;
-	}
-	else {
-		std::cout << "no" << std::endl;
+void CheckUniformParenthesesWithStack(std::string uniformParentheses)
+{
+	Stack<char> stackDT;
 
+	bool isUniform = true;
+	for (auto c : uniformParentheses)
+	{
+		switch (c)
+		{
+		case 41:
+		{
+			if (stackDT.CheckTop() != 40 || stackDT.IsEmpty())
+				isUniform = false;
+			else
+				stackDT.Pop();
+			break;
+		}
+		case 93:
+		{
+			if (stackDT.CheckTop() != 91 || stackDT.IsEmpty())
+				isUniform = false;
+			else
+				stackDT.Pop();
+			break;
+		}
+		case 125:
+		{
+			if (stackDT.CheckTop() != 123 || stackDT.IsEmpty())
+				isUniform = false;
+			else
+				stackDT.Pop();
+			break;
+		}
+		default:
+		{
+			stackDT.Push(c);
+			break;
+		}
+
+		}
+		if (!isUniform) break;
 	}
+
+	if (isUniform) std::cout << uniformParentheses << " is uniform." << std::endl;
+	else std::cout << uniformParentheses << " is not uniform." << std::endl;
 }
 
 int main()
 {
 	//LinkedListExample();
-
-	Stack stackDT;
-
-	stackDT.Push("Value");
-	std::cout << stackDT.Pop() << std::endl;
-	std::cout << stackDT.Pop() << std::endl;
-	std::cout << (!stackDT.IsEmpty() ? "true" : "false");
-
-	//std::unique_ptr<int> intptr = std::make_unique<int>(10);
-
-	//Test(intptr.get(), 10);
 
 	//_CrtDumpMemoryLeaks();
 	return 0;
