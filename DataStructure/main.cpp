@@ -135,7 +135,7 @@ void CheckUniformParenthesesWithStack(std::string uniformParentheses)
 int main()
 {
 	//LinkedListExample();
-	DoublyLinkedListExample();
-	//_CrtDumpMemoryLeaks();
+	//DoublyLinkedListExample();
+	//CheckUniformParenthesesWithStack("(({[[]]}))");
 	return 0;
 }
