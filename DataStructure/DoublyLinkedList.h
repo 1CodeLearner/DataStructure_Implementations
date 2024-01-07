@@ -8,48 +8,48 @@ class DoublyLinkedList
 public:
 	DoublyLinkedList() = default;
 
-	/*
 	DoublyLinkedList(const DoublyLinkedList& other)
 	{
 		*this = other;
 	}
 	DoublyLinkedList& operator=(const DoublyLinkedList& other)
 	{
-		if (this != *other)
+		if (this != &other)
 		{
 			if (!other.IsEmpty())
 			{
 				delete Head;
-				/*Node<T>* temp = other.Head;
-				while (temp)
+				Node<T>* temp = other.Head;
+				Node<T>* newTemp = new Node<T>(temp->value);
+				Head = newTemp;
+				while (temp->next)
 				{
-					Node<T>* newTemp = new Node<T>(temp->value);
-					if(temp->prev)
-					{
-
-					}
+					Node<T>* prevTemp = newTemp;
 					temp = temp->next;
-				}#1#
+					newTemp = new Node<T>(temp->value);
+					prevTemp->next = newTemp;
+				}
 			}
 
 		}
 		return *this;
 	}
 
-	DoublyLinkedList(const DoublyLinkedList&& other)
+	DoublyLinkedList(DoublyLinkedList&& other)
+		noexcept
 	{
 		*this = std::move(other);
 	}
-	DoublyLinkedList& operator=(const DoublyLinkedList&& other)
+	DoublyLinkedList& operator=(DoublyLinkedList&& other)
+		noexcept
 	{
-		if (this != *other)
+		if (this != &other)
 		{
 			Head = other.Head;
-			//End = other.End;
+			other.Head = nullptr;
 		}
 		return *this;
 	}
-	*/
 
 	~DoublyLinkedList()
 	{
@@ -66,6 +66,7 @@ public:
 	void PushFront(const T& value);
 	void PopFront();
 	bool IsEmpty();
+	bool IsEmpty() const;
 
 private:
 	template <typename U>
@@ -118,6 +119,12 @@ void DoublyLinkedList<T>::PopFront()
 
 template <typename T>
 bool DoublyLinkedList<T>::IsEmpty()
+{
+	return Head == nullptr;
+}
+
+template <typename T>
+bool DoublyLinkedList<T>::IsEmpty() const
 {
 	return Head == nullptr;
 }

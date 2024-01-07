@@ -72,8 +72,17 @@ void LinkedListExample()
 void DoublyLinkedListExample() {
 	DoublyLinkedList<int> dll;
 	dll.PushFront(10);
-	std::cout << dll.Front() << std::endl;
-	dll.PopFront();
+	dll.PushFront(20);
+	dll.PushFront(30);
+	DoublyLinkedList<int> dll2 = std::move(dll);
+	//std::cout << dll.Front() << std::endl;
+
+	std::cout << dll2.Front() << std::endl;
+	dll2.PopFront();
+
+	//std::cout << dll.Front() << std::endl;
+	std::cout << dll2.Front() << std::endl;
+
 }
 
 void CheckUniformParenthesesWithStack(std::string uniformParentheses)
