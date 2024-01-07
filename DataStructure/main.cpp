@@ -72,6 +72,8 @@ void LinkedListExample()
 void DoublyLinkedListExample() {
 	DoublyLinkedList<int> dll;
 	dll.PushFront(10);
+	std::cout << dll.Front() << std::endl;
+	dll.PopFront();
 }
 
 void CheckUniformParenthesesWithStack(std::string uniformParentheses)
@@ -124,7 +126,7 @@ void CheckUniformParenthesesWithStack(std::string uniformParentheses)
 int main()
 {
 	//LinkedListExample();
-
+	DoublyLinkedListExample();
 	//_CrtDumpMemoryLeaks();
 	return 0;
 }

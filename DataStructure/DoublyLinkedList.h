@@ -55,7 +55,6 @@ public:
 	{
 		while (Head != nullptr)
 		{
-			std::cout << " Testing " << std::endl;
 			Node<T>* temp = Head->next;
 			delete Head;
 			Head = temp;
@@ -111,6 +110,10 @@ void DoublyLinkedList<T>::PopFront()
 {
 	if (IsEmpty())
 		return;
+
+	Node<T>* temp = Head;
+	Head = temp->next;
+	delete temp;
 }
 
 template <typename T>
