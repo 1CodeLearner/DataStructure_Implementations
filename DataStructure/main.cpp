@@ -4,8 +4,8 @@
 #include "DoublyLinkedList.h"
 #include <crtdbg.h>
 #include <stack>
-
 #include "Stack.h"
+#include "QueueArray.h"
 
 // Call _CrtDumpMemoryLeaks after main has returned and before program terminates.
 struct AtExit
@@ -137,5 +137,18 @@ int main()
 	//LinkedListExample();
 	//DoublyLinkedListExample();
 	//CheckUniformParenthesesWithStack("(({[[]]}))");
+
+	QueueArray<int*> queueArr(5);
+	for (int i = 0; i < 3; ++i) {
+		int* value = new int(10 + i);
+		queueArr.Enqueue(value);
+	}
+	queueArr.Dequeue(); // 
+	std::cout << queueArr.Front() << std::endl;
+	std::cout << (queueArr.IsEmpty() ? "True" : "False") << std::endl;
+	queueArr.Dequeue();
+	queueArr.Dequeue(); //set front and rear to -1
+
+
 	return 0;
 }
