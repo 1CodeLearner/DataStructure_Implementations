@@ -1,5 +1,4 @@
-﻿  main.cpp
-C:\Users\addinedu\Desktop\DataStructure_Implementations\DataStructure\main.cpp(143,25): error C2059: syntax error: ')'
-C:\Users\addinedu\Desktop\DataStructure_Implementations\DataStructure\main.cpp(145,20): error C2059: syntax error: ')'
-  QueueArray.cpp
+﻿  QueueArray.cpp
+  main.cpp
   Generating Code...
+  DataStructure.vcxproj -> C:\Users\addinedu\Desktop\DataStructure_Implementations\x64\Debug\DataStructure.exe

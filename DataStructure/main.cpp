@@ -138,17 +138,24 @@ int main()
 	//DoublyLinkedListExample();
 	//CheckUniformParenthesesWithStack("(({[[]]}))");
 
-	QueueArray<int*> queueArr(5);
-	for (int i = 0; i < 3; ++i) {
-		int* value = new int(10 + i);
+	QueueArray<int> queueArr(5);
+	for (int i = 0; i < 5; ++i) {
+		int value = 10 + i;
 		queueArr.Enqueue(value);
 	}
-	queueArr.Dequeue(); // 
-	std::cout << queueArr.Front() << std::endl;
-	std::cout << (queueArr.IsEmpty() ? "True" : "False") << std::endl;
-	queueArr.Dequeue();
-	queueArr.Dequeue(); //set front and rear to -1
 
+	/*std::cout << queueArr.Front() << std::endl;
+	queueArr.Dequeue();	
+	std::cout << queueArr.Front() << std::endl;
+	queueArr.Dequeue();
+	std::cout << queueArr.Front() << std::endl;
+	queueArr.Dequeue();
+	std::cout << queueArr.Front() << std::endl;
+	queueArr.Dequeue();
+	std::cout << queueArr.Front() << std::endl;
+	queueArr.Dequeue();*/
+
+	
 
 	return 0;
 }
