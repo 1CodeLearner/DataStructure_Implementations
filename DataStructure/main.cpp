@@ -7,7 +7,7 @@
 #include "Stack.h"
 #include "QueueArray.h"
 
-// Call _CrtDumpMemoryLeaks after main has returned and before program terminates.
+//Call _CrtDumpMemoryLeaks after main has returned and before program terminates.
 struct AtExit
 {
 	~AtExit() { _CrtDumpMemoryLeaks(); }
@@ -144,18 +144,12 @@ int main()
 		queueArr.Enqueue(value);
 	}
 
-	/*std::cout << queueArr.Front() << std::endl;
+	std::cout << queueArr.Front() << std::endl;
+
+	QueueArray<int> queueArr1 = queueArr;
 	queueArr.Dequeue();	
 	std::cout << queueArr.Front() << std::endl;
-	queueArr.Dequeue();
-	std::cout << queueArr.Front() << std::endl;
-	queueArr.Dequeue();
-	std::cout << queueArr.Front() << std::endl;
-	queueArr.Dequeue();
-	std::cout << queueArr.Front() << std::endl;
-	queueArr.Dequeue();*/
-
-	
+	std::cout << queueArr1.Front() << std::endl;
 
 	return 0;
 }
