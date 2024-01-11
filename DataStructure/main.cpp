@@ -132,24 +132,30 @@ void CheckUniformParenthesesWithStack(std::string uniformParentheses)
 	else std::cout << uniformParentheses << " is not uniform." << std::endl;
 }
 
+void QueueArrayExample() {
+	
+	QueueArray<int> queueArr1(1);
+	{
+		QueueArray<int> queueArr(5);
+		for (int i = 0; i < 5; ++i) {
+			int value = 10 + i;
+			queueArr.Enqueue(value);
+		}
+		std::cout << queueArr.Front() << std::endl;
+		queueArr1 = std::move(queueArr);
+	}
+	std::cout << queueArr1.Front() << std::endl;
+	queueArr1.Dequeue();
+	std::cout << queueArr1.Front() << std::endl;
+}
+
 int main()
 {
 	//LinkedListExample();
 	//DoublyLinkedListExample();
 	//CheckUniformParenthesesWithStack("(({[[]]}))");
 
-	QueueArray<int> queueArr(5);
-	for (int i = 0; i < 5; ++i) {
-		int value = 10 + i;
-		queueArr.Enqueue(value);
-	}
-
-	std::cout << queueArr.Front() << std::endl;
-
-	QueueArray<int> queueArr1 = queueArr;
-	queueArr.Dequeue();	
-	std::cout << queueArr.Front() << std::endl;
-	std::cout << queueArr1.Front() << std::endl;
+	QueueArrayExample();
 
 	return 0;
 }
