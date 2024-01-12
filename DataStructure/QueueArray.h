@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <assert.h>
+#include <cmath>
 
 template<typename T>
 class QueueArray
@@ -15,23 +16,41 @@ public:
 	QueueArray& operator=(QueueArray&& other);
 
 	~QueueArray();
-	bool Enqueue(T value); 
+	bool Enqueue(T value);
 	void Dequeue();
 	T Front() const;
 	bool IsEmpty() const;
-	int Size() const;
+	int ContainerSize() const;
+	int ElementsNum() const;
 
-private: 
+private:
 	T* ArrPtr = nullptr;
 	int size = 0;
-	int front = -1; 
+	int front = -1;
 	int rear = -1;
 };
 
 template<typename T>
+int QueueArray<T>::ElementsNum() const
+{
+	if (IsEmpty())
+		return 0;
+	
+	int calc = rear - front;
+
+	if (calc == 0) 
+		return ContainerSize();
+	
+	if (calc < 0)
+		calc += ContainerSize();
+	 
+	return calc + 1;	
+}
+
+template<typename T>
 QueueArray<T>& QueueArray<T>::operator=(QueueArray&& other)
 {
-	if (this != &other) 
+	if (this != &other)
 	{
 		size = other.size;
 		front = other.front;
@@ -53,15 +72,15 @@ QueueArray<T>::QueueArray(QueueArray&& other)
 template<typename T>
 QueueArray<T>& QueueArray<T>::operator=(const QueueArray& other)
 {
-	if (this != &other) 
+	if (this != &other)
 	{
 		size = other.size;
-		front = other.front; 
-		rear = other.rear; 
+		front = other.front;
+		rear = other.rear;
 
 		delete ArrPtr;
 		T* newTemp = new T[size];
-		for (int i = 0; i < size; ++i) 
+		for (int i = 0; i < size; ++i)
 		{
 			newTemp[i] = other.ArrPtr[i];
 		}
@@ -79,7 +98,7 @@ QueueArray<T>::QueueArray(const QueueArray& other)
 
 
 template<typename T>
-int QueueArray<T>::Size() const
+int QueueArray<T>::ContainerSize() const
 {
 	return size;
 }
@@ -97,7 +116,7 @@ QueueArray<T>::QueueArray(T _size)
 template<typename T>
 QueueArray<T>::~QueueArray()
 {
-	delete [] ArrPtr;
+	delete[] ArrPtr;
 }
 
 template<typename T>
@@ -132,15 +151,15 @@ void QueueArray<T>::Dequeue()
 template<typename T>
 inline bool QueueArray<T>::Enqueue(T value)
 {
-	if (IsEmpty()) 
+	if (IsEmpty())
 	{
-		front = 0; 
-		rear = 0; 
+		front = 0;
+		rear = 0;
 		ArrPtr[rear] = value;
 		return true;
 	}
 
-	if ((rear + 1) % size != front) 
+	if ((rear + 1) % size != front)
 	{
 		rear = rear + 1 % size;
 		ArrPtr[rear] = value;

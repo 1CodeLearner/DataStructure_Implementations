@@ -6,6 +6,9 @@
 #include <stack>
 #include "Stack.h"
 #include "QueueArray.h"
+#include "QueueLinked.h"
+#include <unordered_map>
+#include <sstream>
 
 //Call _CrtDumpMemoryLeaks after main has returned and before program terminates.
 struct AtExit
@@ -144,9 +147,25 @@ void QueueArrayExample() {
 		std::cout << queueArr.Front() << std::endl;
 		queueArr1 = std::move(queueArr);
 	}
-	std::cout << queueArr1.Front() << std::endl;
-	queueArr1.Dequeue();
-	std::cout << queueArr1.Front() << std::endl;
+	//std::cout << queueArr1.Front() << std::endl;
+	//queueArr1.Dequeue();
+	//std::cout << queueArr1.Front() << std::endl;
+
+	std::cout << queueArr1.ElementsNum()<< std::endl;
+}
+
+void QueueLinkedExample() 
+{
+	QueueLinked<int> QLinked;
+	QLinked.Enqueue(10);
+	QLinked.Enqueue(20);
+	QLinked.Enqueue(30);
+	QLinked.Enqueue(40);
+	QLinked.Dequeue();
+	QLinked.Dequeue();
+
+	std::cout << QLinked.Front() << std::endl;
+	std::cout << QLinked.Size() << std::endl;
 }
 
 int main()
@@ -154,8 +173,8 @@ int main()
 	//LinkedListExample();
 	//DoublyLinkedListExample();
 	//CheckUniformParenthesesWithStack("(({[[]]}))");
-
-	QueueArrayExample();
+	//QueueArrayExample();
+	//QueueLinkedExample();
 
 	return 0;
 }
