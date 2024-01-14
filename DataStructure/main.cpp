@@ -175,6 +175,6 @@ int main()
 	//CheckUniformParenthesesWithStack("(({[[]]}))");
 	//QueueArrayExample();
 	//QueueLinkedExample();
-
+	CheckUniformParenthesesWithStack("(({[[]]}))");
 	return 0;
 }
