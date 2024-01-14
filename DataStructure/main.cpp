@@ -136,6 +136,6 @@ int main()
 {
 	//LinkedListExample();
 	//DoublyLinkedListExample();
-	//CheckUniformParenthesesWithStack("(({[[]]}))");
+	CheckUniformParenthesesWithStack("(({[[]]}))");
 	return 0;
 }
