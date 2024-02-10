@@ -180,10 +180,16 @@ void BinarySearchTreeExample()
 	bst.Add(90);
 	bst.Add(34);
 
+	bst.Delete(34);
+
 	const BST<int>::Node* node = bst.Find(50);
 	if(node)
 	{
 		std::cout << node->Value << std::endl;
+	}
+	else
+	{
+		std::cout << "missing" << std::endl;
 	}
 	//delete node;
 }

@@ -34,31 +34,35 @@ private:
 
 	Node* FindRecursive(Node* node, T Value);
 
-	Node* DeleteNode(Node* node);
-};
+	Node* DeleteRecursive(Node* node, T Value);
 
+	void DeleteNodes(Node* node);
+
+	Node* FindParentRecursive(Node* node, T Value);
+};
 
 template<typename T>
 BST<T>::~BST()
 {
-	Root = DeleteNode(Root);
-	delete Root;
+	DeleteNodes(Root);
 }
+
+template<typename T>
+void BST<T>::DeleteNodes(Node* node)
+{
+	if (!node)
+		return;
+
+	DeleteNodes(node->Left);
+	DeleteNodes(node->Right);
+
+	delete node;
+}
+
 template<typename T>
 void BST<T>::Add(T Value)
 {
 	Root = AddRecursive(Root, Value);
-}
-
-template<typename T>
-const typename BST<T>::Node* BST<T>::Find(T Value)
-{
-	return FindRecursive(Root, Value);
-}
-
-template<typename T>
-void BST<T>::Delete(T Value)
-{
 }
 
 template<typename T>
@@ -79,6 +83,12 @@ typename BST<T>::Node* BST<T>::AddRecursive(Node* node, T Value)
 	}
 
 	return node;
+}
+
+template<typename T>
+const typename BST<T>::Node* BST<T>::Find(T Value)
+{
+	return FindRecursive(Root, Value);
 }
 
 template<typename T>
@@ -103,13 +113,88 @@ typename BST<T>::Node* BST<T>::FindRecursive(Node* node, T Value)
 }
 
 template<typename T>
-typename BST<T>::Node* BST<T>::DeleteNode(Node* node)
+void BST<T>::Delete(T Value)
+{
+	Root = DeleteRecursive(Root, Value);
+}
+
+template<typename T>
+typename BST<T>::Node* BST<T>::DeleteRecursive(Node* node, T Value)
 {
 	if (!node)
 		return nullptr;
 
-	DeleteNode(node->Left);
-	DeleteNode(node->Right);
+	if (Value < node->Value)
+	{
+		node->Left = DeleteRecursive(node->Left, Value);
+	}
+	else if (Value > node->Value)
+	{
+		node->Right = DeleteRecursive(node->Right, Value);
+	}
+	else
+	{
+		if (!node->Right && !node->Left)
+		{
+			Node* temp = node;
+			node = nullptr;
+			delete temp;
+		}
+		else if (node->Right && node->Left)
+		{
+			Node* temp = node->Right;
+			while (temp->Left)
+			{
+				temp = temp->Left;
+			}
+			node->Value = temp->Value;
+			node->Right = DeleteRecursive(node->Right, temp->Value);
+		}
+		else if (node->Right)
+		{
+			Node* temp = node;
+			node = node->Right;
+			delete temp;
+		}
+		else
+		{
+			Node* temp = node;
+			node = node->Left;
+			delete temp;
+		}
+	}
 
-	delete node;
+	return node;
+}
+
+template<typename T>
+typename BST<T>::Node* BST<T>::FindParentRecursive(Node* node, T Value)
+{
+	if (!node)
+	{
+		return nullptr;
+	}
+
+	if (Value < node->Value)
+	{
+		if (node->Left->Value == Value)
+		{
+			return node;
+		}
+		else
+		{
+			return FindParentRecursive(node->Left, Value);
+		}
+	}
+	else if (Value > node->Value)
+	{
+		if (node->Right->Value == Value)
+		{
+			return node;
+		}
+		else
+		{
+			return FindParentRecursive(node->Right, Value);
+		}
+	}
 }
