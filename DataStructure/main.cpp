@@ -169,6 +169,25 @@ void QueueLinkedExample()
 	std::cout << QLinked.Size() << std::endl;
 }
 
+void BinarySearchTreeExample()
+{
+	BST<int> bst;
+	bst.Add(50);
+	bst.Add(5);
+	bst.Add(11);
+	bst.Add(20);
+	bst.Add(60);
+	bst.Add(90);
+	bst.Add(34);
+
+	const BST<int>::Node* node = bst.Find(50);
+	if(node)
+	{
+		std::cout << node->Value << std::endl;
+	}
+	//delete node;
+}
+
 int main()
 {
 	//LinkedListExample();
@@ -178,13 +197,6 @@ int main()
 	//QueueLinkedExample();
 	//CheckUniformParenthesesWithStack("(({[[]]}))");
 
-	BST<int> bst;
-	bst.Add(50);
-	bst.Add(5);
-	bst.Add(11);
-	bst.Add(20);
-	bst.Add(60);
-	bst.Add(90);
-	bst.Add(34);
+	BinarySearchTreeExample();
 	return 0;
 }
