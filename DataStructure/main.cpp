@@ -7,6 +7,7 @@
 #include "Stack.h"
 #include "QueueArray.h"
 #include "QueueLinked.h"
+#include "BST.h"
 #include <unordered_map>
 #include <sstream>
 
@@ -175,6 +176,15 @@ int main()
 	//CheckUniformParenthesesWithStack("(({[[]]}))");
 	//QueueArrayExample();
 	//QueueLinkedExample();
-	CheckUniformParenthesesWithStack("(({[[]]}))");
+	//CheckUniformParenthesesWithStack("(({[[]]}))");
+
+	BST<int> bst;
+	bst.Add(50);
+	bst.Add(5);
+	bst.Add(11);
+	bst.Add(20);
+	bst.Add(60);
+	bst.Add(90);
+	bst.Add(34);
 	return 0;
 }
