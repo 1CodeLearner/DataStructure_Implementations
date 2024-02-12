@@ -3,6 +3,7 @@
 #include "LinkedList.h"
 #include "DoublyLinkedList.h"
 #include <crtdbg.h>
+#include <random>
 #include <stack>
 #include "Stack.h"
 #include "QueueArray.h"
@@ -10,6 +11,7 @@
 #include "BST.h"
 #include <unordered_map>
 #include <sstream>
+#include <random>
 
 //Call _CrtDumpMemoryLeaks after main has returned and before program terminates.
 struct AtExit
@@ -137,7 +139,7 @@ void CheckUniformParenthesesWithStack(std::string uniformParentheses)
 }
 
 void QueueArrayExample() {
-	
+
 	QueueArray<int> queueArr1(1);
 	{
 		QueueArray<int> queueArr(5);
@@ -152,10 +154,10 @@ void QueueArrayExample() {
 	//queueArr1.Dequeue();
 	//std::cout << queueArr1.Front() << std::endl;
 
-	std::cout << queueArr1.ElementsNum()<< std::endl;
+	std::cout << queueArr1.ElementsNum() << std::endl;
 }
 
-void QueueLinkedExample() 
+void QueueLinkedExample()
 {
 	QueueLinked<int> QLinked;
 	QLinked.Enqueue(10);
@@ -172,18 +174,27 @@ void QueueLinkedExample()
 void BinarySearchTreeExample()
 {
 	BST<int> bst;
-	bst.Add(50);
+
+	std::mt19937 rnd(std::random_device{}());
+	std::uniform_int_distribution<int> dist(0, 10000000);
+	for (int i = 0; i < 10000; ++i)
+	{
+		bst.Add(dist(rnd));
+	}
+
+	/*bst.Add(50);
 	bst.Add(5);
+	bst.Add(3);
 	bst.Add(11);
 	bst.Add(20);
 	bst.Add(60);
 	bst.Add(90);
 	bst.Add(34);
 
-	bst.Delete(34);
+	bst.Delete(5);*/
 
 	const BST<int>::Node* node = bst.Find(50);
-	if(node)
+	if (node)
 	{
 		std::cout << node->Value << std::endl;
 	}
@@ -191,7 +202,17 @@ void BinarySearchTreeExample()
 	{
 		std::cout << "missing" << std::endl;
 	}
-	//delete node;
+
+	int minValue = bst.Min();
+	std::cout << minValue << std::endl;
+
+	int maxValue = bst.Max();
+	std::cout << maxValue << std::endl;
+
+	int heightVal = bst.Height();
+	std::cout << heightVal << std::endl;
+
+	bst.Traverse();
 }
 
 int main()

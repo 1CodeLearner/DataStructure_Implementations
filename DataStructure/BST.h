@@ -1,4 +1,7 @@
 #pragma once
+#include <algorithm>
+#include <queue>
+#include <iostream>
 
 class Node;
 
@@ -25,6 +28,14 @@ public:
 
 	void Delete(T Value);
 
+	int Height();
+
+	void Traverse();
+
+	T Min();
+
+	T Max();
+
 	~BST();
 
 private:
@@ -39,6 +50,14 @@ private:
 	void DeleteNodes(Node* node);
 
 	Node* FindParentRecursive(Node* node, T Value);
+
+	T MinRecursive(Node* node);
+
+	T MaxRecursive(Node* node);
+
+	int HeightRecursive(Node* node);
+
+	void TraverseLevelOrder(Node* node);
 };
 
 template<typename T>
@@ -116,6 +135,113 @@ template<typename T>
 void BST<T>::Delete(T Value)
 {
 	Root = DeleteRecursive(Root, Value);
+}
+
+template<typename T>
+int BST<T>::Height()
+{
+	return HeightRecursive(Root);
+}
+
+template<typename T>
+void BST<T>::Traverse()
+{
+	TraverseLevelOrder(Root);
+}
+
+template<typename T>
+void BST<T>::TraverseLevelOrder(Node* node)
+{
+	if (!node)
+	{
+		return;
+	}
+
+	int height = HeightRecursive(Root);
+
+	std::queue<Node*> nodeQueue;
+
+	if (node->Left)
+	{
+		nodeQueue.emplace(node->Left);
+	}
+	if (node->Right)
+	{
+		nodeQueue.emplace(node->Right);
+	}
+
+	std::cout << node->Value << " ";
+
+	while (nodeQueue.size() > 0)
+	{
+		Node* temp = nodeQueue.front();
+		nodeQueue.pop();
+
+		if (temp->Left)
+		{
+			nodeQueue.emplace(temp->Left);
+		}
+		if (temp->Right)
+		{
+			nodeQueue.emplace(temp->Right);
+		}
+
+		std::cout << temp->Value << " ";
+	}
+}
+
+template<typename T>
+int BST<T>::HeightRecursive(Node* node)
+{
+	if (!node)
+	{
+		return -1;
+	}
+
+	return std::max(HeightRecursive(node->Left), HeightRecursive(node->Right)) + 1;
+}
+template<typename T>
+inline T BST<T>::Min()
+{
+	return MinRecursive(Root);
+}
+
+template<typename T>
+inline T BST<T>::MinRecursive(Node* node)
+{
+	if (!node)
+	{
+		return T();
+	}
+
+	if (node->Left)
+	{
+		return MinRecursive(node->Left);
+	}
+
+	return node->Value;
+}
+
+template<typename T>
+inline T BST<T>::Max()
+{
+	return MaxRecursive(Root);
+}
+
+template<typename T>
+inline T BST<T>::MaxRecursive(Node* node)
+{
+	if (!node)
+	{
+		return T();
+	}
+
+	if (node->Right)
+	{
+		return MaxRecursive(node->Right);
+	}
+
+	return node->Value;
 }
 
 template<typename T>
