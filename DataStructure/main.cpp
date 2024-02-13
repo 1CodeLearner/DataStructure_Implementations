@@ -175,23 +175,23 @@ void BinarySearchTreeExample()
 {
 	BST<int> bst;
 
-	std::mt19937 rnd(std::random_device{}());
-	std::uniform_int_distribution<int> dist(0, 10000000);
+	/*std::mt19937 rnd(std::random_device{}());
+	std::uniform_int_distribution<int> dist(0, 5);
 	for (int i = 0; i < 10000; ++i)
 	{
 		bst.Add(dist(rnd));
-	}
+	}*/
 
-	/*bst.Add(50);
-	bst.Add(5);
+	bst.Add(50);
+	/*bst.Add(5);
 	bst.Add(3);
 	bst.Add(11);
 	bst.Add(20);
 	bst.Add(60);
 	bst.Add(90);
-	bst.Add(34);
+	bst.Add(34);*/
 
-	bst.Delete(5);*/
+	//bst.Delete(5);
 
 	const BST<int>::Node* node = bst.Find(50);
 	if (node)
@@ -213,6 +213,8 @@ void BinarySearchTreeExample()
 	std::cout << heightVal << std::endl;
 
 	bst.Traverse();
+
+	std::cout << (bst.IsBST() ? "TRUE" : "FALSE") << std::endl;
 }
 
 int main()

@@ -32,6 +32,8 @@ public:
 
 	void Traverse();
 
+	bool IsBST();
+
 	T Min();
 
 	T Max();
@@ -58,12 +60,95 @@ private:
 	int HeightRecursive(Node* node);
 
 	void TraverseLevelOrder(Node* node);
+
+	bool IsBSTUtilN2(Node* node);
+
+	bool IsBSTUtilN(Node* node, int min, int max);
+
+	bool IsSubTreeLessThan(Node* node, int value);
+	bool IsSubTreeGreaterThan(Node* node, int value);
 };
+
 
 template<typename T>
 BST<T>::~BST()
 {
 	DeleteNodes(Root);
+}
+
+template<typename T>
+bool BST<T>::IsSubTreeLessThan(Node* node, int value)
+{
+
+	if (!node)
+		return true;
+
+	if (node->Value < value && IsSubTreeLessThan(node->Left, value) && IsSubTreeLessThan(node->Right, value))
+	{
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+template<typename T>
+bool BST<T>::IsSubTreeGreaterThan(Node* node, int value)
+{
+	if (!node)
+		return true;
+
+	if (node->Value > value && IsSubTreeGreaterThan(node->Left, value) && IsSubTreeGreaterThan(node->Right, value))
+	{
+		return true;
+	}
+	else {
+		return false;
+	}
+
+}
+
+template<typename T>
+bool BST<T>::IsBST()
+{
+	return IsBSTUtilN(Root, INT_MIN, INT_MAX);
+	//return IsBSTUtilN2(Root);
+}
+
+template<typename T>
+bool BST<T>::IsBSTUtilN(Node* node, int min, int max)
+{
+	if (!node)
+	{
+		return true;
+	}
+
+	if(node->Value < max && node->Value > min && IsBSTUtilN(node->Left, min, node->Value) && IsBSTUtilN(node->Right, node->Value, max))
+	{
+		return true;
+	}
+	else 
+	{
+		return false;
+	}
+}
+
+template<typename T>
+bool BST<T>::IsBSTUtilN2(Node* node)
+{
+	if (!node)
+	{
+		return true;
+	}
+
+	if (IsSubTreeLessThan(node->Left, node->Value) && IsSubTreeGreaterThan(node->Right, node->Value) && IsBSTUtilN2(node->Left) && IsBSTUtilN2(node->Right))
+	{
+		return true;
+	}
+	else 
+	{
+		return false;
+	}
 }
 
 template<typename T>
@@ -189,6 +274,7 @@ void BST<T>::TraverseLevelOrder(Node* node)
 		std::cout << temp->Value << " ";
 	}
 }
+
 
 template<typename T>
 int BST<T>::HeightRecursive(Node* node)
