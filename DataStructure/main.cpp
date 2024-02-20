@@ -183,13 +183,13 @@ void BinarySearchTreeExample()
 	}*/
 
 	bst.Add(50);
-	/*bst.Add(5);
+	bst.Add(5);
 	bst.Add(3);
 	bst.Add(11);
 	bst.Add(20);
 	bst.Add(60);
 	bst.Add(90);
-	bst.Add(34);*/
+	bst.Add(34);
 
 	//bst.Delete(5);
 
@@ -215,6 +215,8 @@ void BinarySearchTreeExample()
 	bst.Traverse();
 
 	std::cout << (bst.IsBST() ? "TRUE" : "FALSE") << std::endl;
+
+	std::cout << "Successor: " << bst.GetPredecessorOf(maxValue) << std::endl;
 }
 
 int main()

@@ -38,6 +38,10 @@ public:
 
 	T Max();
 
+	T GetPredecessorOf(int value);
+
+	T GetSuccessorOf(int value);
+
 	~BST();
 
 private:
@@ -67,6 +71,11 @@ private:
 
 	bool IsSubTreeLessThan(Node* node, int value);
 	bool IsSubTreeGreaterThan(Node* node, int value);
+
+	T GetPredecessorValue(Node* Root, int value);
+
+
+	T GetSuccessorValue(Node* Root, int value);
 };
 
 
@@ -123,11 +132,11 @@ bool BST<T>::IsBSTUtilN(Node* node, int min, int max)
 		return true;
 	}
 
-	if(node->Value < max && node->Value > min && IsBSTUtilN(node->Left, min, node->Value) && IsBSTUtilN(node->Right, node->Value, max))
+	if (node->Value < max && node->Value > min && IsBSTUtilN(node->Left, min, node->Value) && IsBSTUtilN(node->Right, node->Value, max))
 	{
 		return true;
 	}
-	else 
+	else
 	{
 		return false;
 	}
@@ -145,7 +154,7 @@ bool BST<T>::IsBSTUtilN2(Node* node)
 	{
 		return true;
 	}
-	else 
+	else
 	{
 		return false;
 	}
@@ -312,6 +321,99 @@ template<typename T>
 inline T BST<T>::Max()
 {
 	return MaxRecursive(Root);
+}
+
+template<typename T>
+inline T BST<T>::GetPredecessorOf(int value)
+{
+	return GetPredecessorValue(Root, value);
+}
+
+template<typename T>
+inline T BST<T>::GetSuccessorOf(int value)
+{
+	return GetSuccessorValue(Root, value);
+}
+
+
+template<typename T>
+T BST<T>::GetSuccessorValue(Node* Root, int value)
+{
+	if (!Root) 
+		return value;
+
+	const Node* nodeTemp = Find(value);
+
+	if (!nodeTemp) 
+		return value;
+
+	Node* Successor = Root;
+	if (nodeTemp->Right)
+	{
+		Successor = nodeTemp->Right;
+		while (Successor->Left)
+		{
+			Successor = Successor->Left;
+		}
+	}
+	else
+	{
+		Node* Ancestor = Root;
+		while (Ancestor != nodeTemp)
+		{
+			if (value < Ancestor->Value)
+			{
+				Successor = Ancestor;
+				Ancestor = Ancestor->Left;
+			}
+			else 
+			{
+				Ancestor = Ancestor->Right;
+			}
+		}
+	}
+
+	return Successor->Value;
+}
+
+template<typename T>
+T BST<T>::GetPredecessorValue(Node* Root, int value)
+{
+	if (!Root)
+		return value;
+
+	const Node* nodeTemp = Find(value);
+
+	if (!nodeTemp)
+		return value;
+
+	Node* Predecessor = Root;
+	if (nodeTemp->Left)
+	{
+		Predecessor = nodeTemp->Left;
+		while (Predecessor->Right)
+		{
+			Predecessor = Predecessor->Right;
+		}
+	}
+	else
+	{
+		Node* Ancestor = Root;
+		while (Ancestor != nodeTemp)
+		{
+			if (value > Ancestor->Value)
+			{
+				Predecessor = Ancestor;
+				Ancestor = Ancestor->Right;
+			}
+			else
+			{
+				Ancestor = Ancestor->Left;
+			}
+		}
+	}
+
+	return Predecessor->Value;
 }
 
 template<typename T>
