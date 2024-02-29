@@ -42,6 +42,9 @@ public:
 
 	T GetSuccessorOf(int value);
 
+	bool DoesPairExist(int value);
+
+
 	~BST();
 
 private:
@@ -65,6 +68,8 @@ private:
 
 	void TraverseLevelOrder(Node* node);
 
+	void InorderTraversal(Node* node, std::vector<T>& vector);
+
 	bool IsBSTUtilN2(Node* node);
 
 	bool IsBSTUtilN(Node* node, int min, int max);
@@ -74,10 +79,54 @@ private:
 
 	T GetPredecessorValue(Node* Root, int value);
 
-
 	T GetSuccessorValue(Node* Root, int value);
+
+	bool DoesPairExistPrivate(Node* Root, int value);
 };
 
+template<typename T>
+void BST<T>::InorderTraversal(Node* node, std::vector<T>& vector)
+{
+	if (!node)
+		return;
+
+	InorderTraversal(node->Left, vector);
+	vector.push_back(node->Value);
+	InorderTraversal(node->Right, vector);
+}
+
+template<typename T>
+bool BST<T>::DoesPairExistPrivate(Node* Root, int value)
+{
+	if (!Root)
+		return false;
+
+	std::vector<T> vector;
+	InorderTraversal(Root, vector);
+	int min = 0;
+	int max = vector.size() - 1;
+
+	while (min < max)
+	{
+		int total = vector[min] + vector[max];
+		if (total == value)
+			return true;
+		else if(total < value)
+		{
+			min++;
+		}
+		else {
+			max--;
+		}
+	}
+	return false;
+}
+
+template<typename T>
+bool BST<T>::DoesPairExist(int value)
+{
+	return DoesPairExistPrivate(Root, value);
+}
 
 template<typename T>
 BST<T>::~BST()
@@ -339,12 +388,12 @@ inline T BST<T>::GetSuccessorOf(int value)
 template<typename T>
 T BST<T>::GetSuccessorValue(Node* Root, int value)
 {
-	if (!Root) 
+	if (!Root)
 		return value;
 
 	const Node* nodeTemp = Find(value);
 
-	if (!nodeTemp) 
+	if (!nodeTemp)
 		return value;
 
 	Node* Successor = Root;
@@ -366,7 +415,7 @@ T BST<T>::GetSuccessorValue(Node* Root, int value)
 				Successor = Ancestor;
 				Ancestor = Ancestor->Left;
 			}
-			else 
+			else
 			{
 				Ancestor = Ancestor->Right;
 			}

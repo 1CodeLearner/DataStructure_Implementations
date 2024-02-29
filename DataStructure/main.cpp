@@ -217,6 +217,8 @@ void BinarySearchTreeExample()
 	std::cout << (bst.IsBST() ? "TRUE" : "FALSE") << std::endl;
 
 	std::cout << "Successor: " << bst.GetPredecessorOf(maxValue) << std::endl;
+
+	std::cout << (bst.DoesPairExist(11) ? "TRUE" : "FALSE");
 }
 
 int main()
